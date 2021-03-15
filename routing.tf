@@ -23,21 +23,21 @@ resource "aws_route_table" "tgw" {
 
 # For every specified subnet route table, populate with TGW routes.
 resource "aws_route" "tgw" {
-  for_each = keys(local.routes_in_tables) == tolist([ "_-_", ]) ? {} : local.routes_in_tables
+  for_each = keys(local.routes_in_tables) == tolist(["_-_"]) ? {} : local.routes_in_tables
 
   route_table_id = each.value.route_table_id
   destination_cidr_block = each.value.destination_cidr_block
   transit_gateway_id = var.tgw_id
 
-  depends_on = [ aws_ec2_transit_gateway_vpc_attachment.tgw ]
+  depends_on = [aws_ec2_transit_gateway_vpc_attachment.tgw]
 }
 
 # Associate all TGW subnets with the TGW route table. Gives the TGW access to all VPC CIDR blocks.
 resource "aws_route_table_association" "tgw" {
-  count = var.create_resources == true && tolist(var.subnets) == tolist([ "_", ]) ? length(local.azs) :(
-    var.create_resources == true && tolist(var.subnets) != tolist([ "_", ]) ? length(var.subnets) : 0
+  count = var.create_resources == true && tolist(var.subnets) == tolist(["_"]) ? length(local.azs) :(
+    var.create_resources == true && tolist(var.subnets) != tolist(["_"]) ? length(var.subnets) : 0
   )
 
   route_table_id = join("", aws_route_table.tgw[*].id)
-  subnet_id      = tolist(var.subnets) == tolist([ "_", ]) ? aws_subnet.tgw[count.index].id : var.subnets[count.index]
+  subnet_id      = tolist(var.subnets) == tolist(["_"]) ? aws_subnet.tgw[count.index].id : var.subnets[count.index]
 }

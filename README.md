@@ -41,7 +41,7 @@ See the [examples directory](examples) for complete example usage.
 
 ```hcl
 module "tgw_attachment" {
-  source = "git@github.com:ClusterDaemon/terraform-aws-transit-gateway-attachment.git?ref=v2.0.0"
+  source = "git@github.com:ClusterDaemon/terraform-aws-transit-gateway-attachment.git?ref=v0.1.0"
 
   #
   # Input attributes
@@ -53,7 +53,7 @@ module "tgw_attachment" {
 
 Name | Version
 --- | ---
-AWS | ~= 2.44.0
+AWS | >= 2.44.0
 
 
 ## Inputs:
@@ -99,4 +99,4 @@ The [changelog](https://github.com/ClusterDaemon/terraform-aws-transit-gateway-a
 
 ## Authors
 
-Created and maintained by David Hay - david.hay@nebulate.tech
+Created and maintained by [David Hay](https://github.com/ClusterDaemon) - david.hay@nebulate.tech

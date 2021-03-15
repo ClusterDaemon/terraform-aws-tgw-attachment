@@ -32,13 +32,13 @@ variable "name" {
 variable "azs" {
   description = "List of availability zone names to associate automatically created TGW subnets with. Defaults to all available zones in the region. Overridden by the 'subnets' variable."
   type = list(string)
-  default = [ "_", ]
+  default = ["_"]
 }
 
 variable "subnets" {
   description = "Overriding list of subnets to associate with the TGW route table. Disables automatic subnet creation. If no value is provided, the subnets will be automatically created within the 'tgw_cidr' subnet block, with subnet count defined by the 'azs' variable, and a subnet mask defined by the 'subnet_newbits' variable. If this variable recieves input, those other automatic creation variables are ignored. Do not use TGW subnets for anything other than TGW routing."
   type = list(string)
-  default = [ "_", ]
+  default = ["_"]
 }
 
 variable "subnet_newbits" {
@@ -50,22 +50,7 @@ variable "subnet_newbits" {
 variable "route_destination_cidr_blocks" {
   description = "List of CIDR addresses that may be reached via the TGW attachment. This list yields one route entry per route table defined in 'route_table_ids'."
   type = list(string)
-  default = [
-    "10.0.0.0/8",
-    "172.16.0.0/12",
-    "146.197.118.0/24",
-    "146.197.132.0/23",
-    "146.197.212.0/22",
-    "146.197.251.0/24",
-    "192.168.0.0/16",
-    "146.197.0.0/21",
-    "146.197.8.0/23",
-    "146.197.20.0/22",
-    "146.197.48.0/24",
-    "146.197.54.0/24",
-    "146.197.64.0/23",
-    "146.197.88.0/22",
-  ]
+  default = []
 }
 
 variable "tags" {
@@ -77,7 +62,7 @@ variable "tags" {
 variable "route_table_ids" {
   description = "List of route tables to add TGW routes as defined in 'route_destination_cidr_blocks'."
   type = list(string)
-  default = [ "_", ]
+  default = ["_"]
 }
 
 # Route table IDs are only known after apply, unless they already exist before planning.
